@@ -16,9 +16,17 @@ import {
 
 export default function DashboardLayout({
   children,
+  adminSlot,
+  user,
 }: {
   children: React.ReactNode;
+  adminSlot: React.ReactNode;
+  user: React.ReactNode;
 }) {
+  const userInfo = {
+    role: "admin",
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -45,7 +53,7 @@ export default function DashboardLayout({
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4">
-          {children} {/* ✅ renders dashboard page */}
+          {userInfo.role === "admin" ? adminSlot : user}
         </div>
       </SidebarInset>
     </SidebarProvider>
