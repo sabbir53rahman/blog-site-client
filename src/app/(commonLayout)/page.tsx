@@ -1,8 +1,21 @@
+import { BlogCard } from "@/components/modules/homepage/BlogCard";
 import { blogService } from "@/services/blog.service";
+import { BlogPost } from "@/types";
 
 export default async function Home() {
-  const { data } = await blogService.getBlogPosts();
+  const { data } = await blogService.getBlogPosts({
+    isFeatured: true,
+    search: "",
+  });
 
-  console.log(data);
-  return <div className="">Home page</div>;
+  // console.log(data);
+  return (
+    <div className="container mx-auto">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {data?.data?.map((post: BlogPost) => (
+          <BlogCard key={post.id} post={post} />
+        ))}
+      </div>
+    </div>
+  );
 }
